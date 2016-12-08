@@ -25,7 +25,7 @@ INSERT INTO `test_table` VALUES ('6', '测试标题6', '测试内容6');
 
 ```php
 
-require(__DIR__.'/vendor/autoload.php');
+require(__DIR__ . '/vendor/autoload.php');
 
 $adapter = new \Zend\Db\Adapter\Adapter(array(
 	'driver' => 'pdo',
@@ -37,30 +37,26 @@ $adapter = new \Zend\Db\Adapter\Adapter(array(
 	),
 ));
 
-
-//$result = $adapter->query(' select * from test_table where id > :id limit :limit ')->execute(array(':id'=>37,':limit'=>10));
-//
-//var_dump($result->count());
-//foreach($result as $item){
-//	var_dump($item);
-//}
-
 $table = 'test_table';
+
+$result = $adapter->query(' select * from ' . $table . ' where id > :id limit :limit ')->execute(array(':id' => 1, ':limit' => 5));
+
+foreach ($result as $item) {
+	var_dump($item);
+}
+
+echo '<hr />';
 
 $sql = new \Zend\Db\Sql\Sql($adapter);
 
-$result = $sql->prepareStatementForSqlObject($sql->select($table)->where(function(\Zend\Db\Sql\Where $where){
-	$where
-		->greaterThan('id', '1')
-		->lessThan('id', '4');
+$result = $sql->prepareStatementForSqlObject($sql->select($table)->where(function (\Zend\Db\Sql\Where $where) {
+	$where->greaterThan('id', '1')->lessThan('id', '4');
 })->limit(10))->execute();
 
-echo '<pre>';
-foreach($result as $item){
-	var_export($item);
+foreach ($result as $item) {
+	var_dump($item);
 }
 
-echo '</pre>';
 
 
 ```
