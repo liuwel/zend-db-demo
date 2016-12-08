@@ -1,0 +1,6 @@
+{
+    "require": {
+        "zendframework/zend-db": "^2.8",
+        "zendframework/zend-cache": "^2.7"
+    }
+}
