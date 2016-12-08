@@ -23,21 +23,22 @@ INSERT INTO `test_table` VALUES ('6', '测试标题6', '测试内容6');
 
 #### 代码示例
 
-```php 
+```php
+
 require(__DIR__.'/vendor/autoload.php');
 
 $adapter = new \Zend\Db\Adapter\Adapter(array(
 	'driver' => 'pdo',
 	'dsn' => 'mysql:host=localhost;dbname=masterdb;',
-	'username' => 'user',
-	'password' => 'password',
+	'username' => 'root',
+	'password' => '',
 	'driver_options' => array(
 		PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
 	),
 ));
 
 
-//$result = $adapter->query(' select * from test_table where id > :id limit :limit ')->execute(array(':id'=>2,':limit'=>5));
+//$result = $adapter->query(' select * from test_table where id > :id limit :limit ')->execute(array(':id'=>37,':limit'=>10));
 //
 //var_dump($result->count());
 //foreach($result as $item){
@@ -52,10 +53,15 @@ $result = $sql->prepareStatementForSqlObject($sql->select($table)->where(functio
 	$where
 		->greaterThan('id', '1')
 		->lessThan('id', '4');
-})->limit(5))->execute();
+})->limit(10))->execute();
 
+echo '<pre>';
 foreach($result as $item){
-	var_dump($item['title']);
+	var_export($item);
 }
+
+echo '</pre>';
+
+
 ```
 
